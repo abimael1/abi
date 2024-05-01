@@ -1,0 +1,64 @@
+Descrição Detalhada do Código-Fonte da INSAGRO Green Mind
+
+O código-fonte da INSAGRO Green Mind está dividido em dois arquivos principais: `main.py` e `model.py` (opcional).Arquivo `main.py`:
+
+**1. Importação de Bibliotecas:**
+
+* `os`: Utilizada para manipular o sistema operacional.
+* `tensorflow`: Biblioteca principal do TensorFlow para aprendizado de máquina.
+* `tensorflow.keras.preprocessing.image`: Módulo do TensorFlow Keras para pré-processamento de imagens.
+* `tensorflow.keras.models`: Módulo do TensorFlow Keras para criação de modelos neurais.
+* `tensorflow.keras.layers`: Módulo do TensorFlow Keras para camadas de redes neurais.
+* `llama`: Biblioteca Llama para quantização de modelos neurais (opcional).
+
+**2. Carregamento do Conjunto de Dados:**
+
+* As variáveis `diretorio_treino_saudavel` e `diretorio_treino_doente` armazenam os caminhos para os diretórios de treinamento das imagens saudáveis e doentes, respectivamente.
+* As classes `ImageDataGenerator` e `flow_from_directory` do TensorFlow Keras são utilizadas para carregar as imagens dos diretórios de treinamento, redimensioná-las, normalizá-las e agrupar em batches para treinamento.
+* A variável `treino` é um objeto `tf.data.Dataset` que combina os conjuntos de dados de imagens saudáveis e doentes.
+
+**3. Criação do Modelo Neural:**
+
+* A classe `Sequential` do TensorFlow Keras é utilizada para criar um modelo neural sequencial.
+* O modelo é composto por duas camadas convolucionais com ativação ReLU, duas camadas de pooling máximo e duas camadas densas.
+* A camada de entrada possui 32 filtros com tamanho de kernel (3, 3) e recebe imagens com 3 canais (RGB).
+* As camadas convolucionais subsequentes possuem 64 filtros com tamanho de kernel (3, 3).
+* As camadas de pooling máximo reduzem a dimensao espacial das imagens.
+* A camada densa final possui um único neurônio com ativação sigmóide, que fornece a probabilidade de uma planta estar doente (0) ou saudável (1).
+
+**4. Treinamento da IA Green Mind:**
+
+* O método `compile` do modelo configura o otimizador (Adam), a função de perda (cross-entropy binária) e a métrica de avaliação (acurácia).
+* O método `fit` treina o modelo no conjunto de dados `treino` por 5 épocas, ajustando os parâmetros do modelo para minimizar a perda e maximizar a acurácia.
+
+**5. Fazendo Predições com a IA Green Mind:**
+
+* A função `load_img` do TensorFlow Keras carrega a nova imagem a ser analisada.
+* A função `img_to_array` converte a imagem em um array NumPy.
+* A função `expand_dims` adiciona uma dimensão ao array para que ele possa ser utilizado como entrada do modelo.
+* O método `predict` do modelo retorna a probabilidade de a planta na nova imagem estar doente.
+* Um print statement exibe a predição final (planta doente ou saudável).
+
+**Observações:**
+
+* O código utiliza quantização de modelo com a biblioteca Llama para otimizar o modelo para dispositivos móveis.
+* O código pode ser adaptado para diferentes conjuntos de dados e tarefas de classificação de imagens.
+* É importante utilizar técnicas de validação cruzada para avaliar o desempenho do modelo em dados não vistos durante o treinamento.
+
+### Arquivo `model.py` (Opcional):
+
+**Este arquivo é opcional e define a função `criar_modelo` que cria o modelo neural da IA Green Mind.**
+
+* A função recebe como entrada o `input_shape` do modelo, que define a dimensão da entrada da rede neural (altura, largura, canais).
+* A função retorna um objeto `Modelo Keras` que representa o modelo neural da IA Green Mind.
+
+**Observações:**
+
+* A função `criar_modelo` pode ser útil para modularizar o código e facilitar a reutilização do modelo em diferentes projetos.
+* É importante definir o `input_shape` corretamente de acordo com o tamanho das imagens do seu conjunto de dados.
+
+**Considerações Adicionais:**
+
+* O código-fonte apresentado é uma versão simplificada da IA Green Mind original e pode ter menor precisão de diagnóstico.
+* O código foi otimizado para ser mais leve e compatível com dispositivos móveis, utilizando técnicas como a redução do número de camadas na rede neural e a quantização de modelo.
+* Certifique-se de ajustar os caminhos para o conjunto de dados e
