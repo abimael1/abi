@@ -1,1 +1,107 @@
+ Simulação do Código da INSAGRO Green Mind Internamente
+
+Objetivo
+
+Simular o funcionamento interno do código da IA Green Mind, desde o carregamento da imagem até a geração da predição.
+
+Cenário:
+
+O código da IA Green Mind está instalado em um servidor. Um agricultor envia a imagem de uma planta para o servidor através de uma interface web. O servidor processa a imagem, analisa-a com o modelo neural e retorna a predição para o agricultor.
+
+**Simulação:**
+
+**1. Recebimento da Imagem:**
+
+* O servidor recebe a imagem da planta enviada pelo agricultor através da interface web.
+* A imagem é salva em um local temporário no servidor.
+
+**2. Pré-processamento da Imagem:**
+
+* A imagem é carregada em memória e convertida em um array NumPy.
+* A imagem é redimensionada para o tamanho (128, 128) pixels, de acordo com o modelo neural.
+* A imagem é normalizada para que seus valores fiquem entre 0 e 1.
+
+**3. Execução do Modelo Neural:**
+
+* O modelo neural da IA Green Mind é carregado em memória.
+* O array NumPy da imagem é passado como entrada para o modelo neural.
+* O modelo neural processa a imagem e gera um vetor de saídas.
+
+**4. Interpretação da Predição:**
+
+* O vetor de saídas do modelo neural é convertido em uma probabilidade de a planta estar doente ou saudável.
+* A probabilidade é comparada com um limiar predefinido para determinar a classe final (doente ou saudável).
+
+**5. Resposta ao Agricultor:**
+
+* A predição final (doente ou saudável) e a probabilidade correspondente são enviadas de volta para o agricultor através da interface web.
+* O agricultor pode visualizar a predição e a probabilidade em seu navegador.
+
+**Exemplo de Simulação:**
+
+**Imagem da Planta:**
+
+```python
+# Carregar a imagem da planta
+imagem = tf.keras.preprocessing.image.load_img("planta.jpg", target_size=(128, 128))
+
+# Converter a imagem em array NumPy
+imagem_array = tf.keras.preprocessing.image.img_to_array(imagem)
+
+# Normalizar a imagem
+imagem_array = imagem_array / 255.0
+```
+
+**Modelo Neural:**
+
+```python
+# Carregar o modelo neural
+modelo = tf.keras.models.load_model("modelo_green_mind.h5")
+```
+
+**Predição:**
+
+```python
+# Predizer a classe da planta
+prediçao = modelo.predict(imagem_array[np.newaxis, ...])
+
+# Converter a predição em probabilidade
+probabilidade = prediçao[0][0]
+
+# Interpretar a predição
+if probabilidade > 0.5:
+    classe = "doente"
+else:
+    classe = "saudável"
+```
+
+**Resposta ao Agricultor:**
+
+```python
+# Enviar a predição e a probabilidade para o agricultor
+resposta = {
+    "classe": classe,
+    "probabilidade": probabilidade
+}
+
+# Enviar a resposta através da interface web
+...
+```
+
+**Observações:**
+
+* Esta simulação é simplificada e não inclui todos os detalhes do código real.
+* O código real pode incluir etapas adicionais, como tratamento de erros, validação de entrada e registro de logs.
+* A simulação utiliza o TensorFlow para carregar e executar o modelo neural.
+* O modelo neural precisa ser treinado previamente com um conjunto de dados de imagens de plantas saudáveis e doentes.
+
+**Conclusão:**
+
+A simulação demonstra o funcionamento básico do código da IA Green Mind, desde o carregamento da imagem até a geração da predição. Ao compreender o fluxo interno do código, podemos entender melhor como a IA Green Mind toma decisões sobre a saúde das plantas.
+
+**Observações Adicionais:**
+
+* A precisão da predição da IA Green Mind depende da qualidade da imagem e da quantidade de dados de treinamento utilizados para treinar o modelo neural.
+* É importante utilizar a IA Green Mind como uma ferramenta de diagnóstico complementar e consultar um especialista em agronomia para obter um diagnóstico definitivo.
+* A IA Green Mind ainda está em desenvolvimento e pode ser aprimorada com o tempo, à medida que mais dados de treinamento forem coletados e novas técnicas de aprendizado de máquina forem desenvolvidas.
 
